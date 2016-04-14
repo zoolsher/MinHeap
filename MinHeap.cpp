@@ -1,9 +1,7 @@
 //
 // Created by zoolsher on 16/4/13.
 //
-
 #include "MinHeap.h"
-
 #include <iostream>
 
 template <class T>
@@ -52,16 +50,16 @@ void MinHeap<T>::manualHeap(int start) {
     int *cur = &this->mHeap[start];
     if(start*2+2>=this->mSize){
         // got left no right
-        int *left = (int*)this->mHeap[start*2+1];
+        int *left = &this->mHeap[start*2+1];
         if(*left<*cur){
             swap(cur,left);
+            return;
         }else{
             return;
         }
     }
     int *left =  &this->mHeap[start * 2 + 1] ;
     int *right =  &this->mHeap[start * 2 + 2] ;
-
     if(*left>*cur){
         if(*cur>*right){
             swap(right,cur);
@@ -104,14 +102,23 @@ void MinHeap<T>::sort() {
 
 template <class T>
 int MinHeap<T>::remove(T data) {
-    if(this->mSize == 1){
-        this->mSize =0;
-        delete[] this->mHeap;
-        return 0;
-    }
+    return 0;
+}
 
-    int *last = this->mHeap[this->mSize-1];
-    int *head = this->mHeap[0];
+template <class T>
+int MinHeap<T>::pop(){
+    if(this->mSize == 1){
+        this->mSize = 0;
+        int val = *this->mHeap;
+        return val;
+    }
+    int *last = &this->mHeap[this->mSize -1];
+    int *head = &this->mHeap[0];
+    int val = *head;
+    swap(last,head);
+    this->mSize--;
+    this->manualHeap(0);
+    return val;
 }
 
 
