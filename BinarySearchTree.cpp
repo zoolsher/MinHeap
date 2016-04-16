@@ -86,19 +86,13 @@ void BinarySearchTree<K,V>::search(K min,K max,vector<V> *v,Node<K,V> *curHead) 
     if(curHead == NULL){
         return;
     }
-
     if(curHead->key>=min&&curHead->key<=max){
         v->push_back(curHead->value);
     }
-
-    if(curHead->key>max){
+    if(curHead->key>=min){
         this->search(min,max,v,curHead->leftChild);
     }
-    if(curHead->key<min){
-        this->search(min,max,v,curHead->rightChild);
-    }
-    if(curHead->key<=max && curHead->key>=min){
-        this->search(min,max,v,curHead->leftChild);
+    if(curHead->key<=max){
         this->search(min,max,v,curHead->rightChild);
     }
 }
